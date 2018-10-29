@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改用户</title>
+    <script src="scripts/boot.js"></script>
+</head>
+<body>
+    <div id="form">
+        <form action="/updateUser" method="post">
+        <input name="id" class="mini-hidden"/>
+        <table>
+            <tr>
+                <td style="width:60px">用户名：</td>
+                <td style="width:100px">
+                    <input name="username" class="mini-textbox"/>
+                </td>
+                <td style="width:60px">密码：</td>
+                <td style="width:100px">
+                    <input name="password" class="mini-password"/>
+                </td>
+            </tr>
+            <tr>
+                <td>性别：</td>
+                <td>
+                    <input name="sex" class="mini-combobox" data="[{'id':1,'text':'男'},{'id':2,'text':'女'}]"/>
+                </td>
+                <td>生日：</td>
+                <td>
+                    <input name="birthday" class="mini-datepicker"/>
+                </td>
+            </tr>
+            <tr>
+                <td>地址：</td>
+                <td>
+                    <input name="address" class="mini-textbox"/>
+                </td>
+                <td>部门：</td>
+                <td>
+                    <input name="dept.name" class="mini-combobox" url="/getDepts?pageIndex=0&pageSize=10" textField="name" valueField="name" dataField="resultList">
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+    <div align="center">
+        <a class="mini-button" iconCls="icon-save" onclick="save()">保存</a>
+        <a class="mini-button" iconCls="icon-cancel" onclick="cancel()">取消</a>
+    </div>
+    <script>
+        mini.parse();
+
+        function save() {
+            var form = new mini.Form("form");
+            var data = form.getData(true,true);
+            alert(JSON.stringify(data));
+            return;
+            $.ajax({
+                url : "/updateUser",
+                type : "post",
+                data : data,
+                success : function (text) {
+                    if (text == "success"){
+                        closeWindow("ok");
+                    } else{
+                        closeWindow("false");
+                    }
+                }
+            });
+        }
+
+        function cancel() {
+            closeWindow("cancel");
+        }
+
+        function closeWindow(text) {
+            CloseOwnerWindow(text);
+        }
+
+        function setData(data) {
+            data = mini.clone(data);
+            alert(JSON.stringify(data));
+            var form = new mini.Form("form");
+            form.setData(data);
+        }
+    </script>
+</body>
+</html>

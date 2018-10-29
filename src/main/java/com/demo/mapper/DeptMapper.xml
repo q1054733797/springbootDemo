@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.demo.mapper.DeptMapper">
+    <!--<select id="getDepts" resultMap="deptMap1">-->
+        <!--select * from t_dept-->
+    <!--</select>-->
+
+    <!--&lt;!&ndash;<select id="getDepts" resultMap="deptMap">&ndash;&gt;-->
+        <!--&lt;!&ndash;select a.*,c.id user_id,c.username,c.password,c.birthday,c.sex,c.address from t_dept a left join dept_user b on a.id = b.dept_id LEFT JOIN user c on c.id = b.user_id&ndash;&gt;-->
+    <!--&lt;!&ndash;</select>&ndash;&gt;-->
+
+    <!--<select id="getUsers" resultType="User">-->
+        <!--select * from user a join dept_user b on a.id = b.user_id and b.dept_id = #{id}-->
+    <!--</select>-->
+
+    <!--<resultMap id="deptMap1" type="Dept">-->
+        <!--&lt;!&ndash;<id property="id" column="id"></id>&ndash;&gt;-->
+        <!--&lt;!&ndash;<result property="name" column="name"></result>&ndash;&gt;-->
+        <!--<collection property="users" ofType="User" select="getUsers"  column="id">-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+
+    <!--<resultMap id="deptMap" type="Dept">-->
+        <!--<id property="id" column="id"></id>-->
+        <!--<result property="name" column="name"></result>-->
+        <!--<collection property="users" ofType="User">-->
+            <!--<id property="id" column="user_id"></id>-->
+            <!--<result property="username" column="username"></result>-->
+            <!--<result property="password" column="password"></result>-->
+            <!--<result property="birthday" column="birthday"></result>-->
+            <!--<result property="sex" column="sex"></result>-->
+            <!--<result property="address" column="address"></result>-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+</mapper>

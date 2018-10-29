@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加部门</title>
+    <script src="scripts/boot.js"></script>
+</head>
+<body>
+<div id="form">
+    <table>
+        <tr>
+            <td style="width:100px">部门名称：</td>
+            <td style="width:100px">
+                <input name="name" class="mini-textbox"/>
+            </td>
+        </tr>
+    </table>
+</div>
+<div align="center">
+    <a class="mini-button" iconCls="icon-save" onclick="save()">保存</a>
+    <a class="mini-button" iconCls="icon-cancel" onclick="cancel()">取消</a>
+</div>
+<script>
+    mini.parse();
+
+    function save() {
+        var form = new mini.Form("form");
+        var data = form.getData(true,true);
+        $.ajax({
+            url : "/addDept",
+            type : "post",
+            data : data,
+            success : function (text) {
+                if (text == "success"){
+                    closeWindow("ok");
+                } else{
+                    closeWindow("false");
+                }
+            }
+        });
+    }
+
+    function cancel() {
+        closeWindow("cancel");
+    }
+
+    function closeWindow(text) {
+        CloseOwnerWindow(text);
+    }
+</script>
+</body>
+</html>

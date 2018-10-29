@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function () {
+            $("button").click(function () {
+                $("form").submit();
+            });
+        });
+    </script>
+</head>
+<body>
+    <form action="/sendMail" method="post" enctype="multipart/form-data">
+        <label for="title">请输入标题</label>
+        <input id="title" name="title" type="text"/><br/>
+        <label for="to">请输入收件人邮箱</label>
+        <input id="to" name="to" type="email"/><br/>
+        <label for="message">请输入邮件内容</label>
+        <textarea id="message" name="message"></textarea><br/>
+        <label for="files">请输入邮件内容</label>
+        <input id="files" name="files" type="file" multiple="multiple"/><br/>
+        <button id="confirm" type="button">确定发送</button>
+    </form>
+
+</body>
+</html>

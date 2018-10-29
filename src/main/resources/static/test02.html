@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面</title>
+    <script src="scripts/boot.js"></script>
+</head>
+<body style="width: 99%;height: 98%;overflow: hidden">
+<div id="form">
+    <table>
+        <tr>
+            <th>部门名称:</th>
+            <td>
+                <input name="name" class="mini-textbox"/>
+            </td>
+            <td>
+                <a class="mini-button" iconCls="icon-search" onclick="search()">查找</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-toolbar">
+    <a class="mini-button" iconCls="icon-add" onclick="add()">添加</a>
+    <a id="edit" class="mini-button" iconCls="icon-edit" onclick="edit()">修改</a>
+    <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>
+</div>
+<div class="mini-fit">
+    <div id="datagrid1" class="mini-datagrid" style="width: 100%;height: 100%;"
+         url="getDepts"  idField="id" multiSelect="true" dataField="resultList" onSelectionChanged="showOrHide">
+        <div property="columns">
+            <!--<div type="indexcolumn"></div>        -->
+            <div type="checkcolumn" ></div>
+            <div field="name" headerAlign="center" align="center">部门名称</div>
+        </div>
+    </div>
+</div>
+<script>
+    mini.parse();
+    var datagrid = mini.get("datagrid1");
+    datagrid.load();
+
+    function add() {
+        mini.open({
+            url : "/addDept.html",
+            title : "添加部门",
+            width : 500,
+            height : 150,
+            ondestroy : function(action) {
+                if (action == "ok"){
+                    mini.alert("添加成功","系统提示");
+                    datagrid.reload();
+                } else if (action == "false") {
+                    mini.alert("添加失败","系统提示");
+                }
+            }
+        });
+    }
+
+    function remove() {
+        var rows = datagrid.getSelecteds();
+        if (rows.length>0){
+            mini.confirm("确定删除吗?","系统提示",function (action) {
+                if ("ok" == action){
+                    var ids = [];
+                    for (var i=0;i<rows.length;i++){
+                        ids.push(rows[i].id)
+                    }
+                    ids = ids.join(",");
+                    datagrid.loading("操作中，请稍后......");
+                    $.ajax({
+                        url : "/deleteDept?ids="+ids,
+                        success : function (text) {
+                            if (text == "success"){
+                                mini.alert("删除成功","系统提示");
+                                datagrid.reload();
+                                datagrid.unmask();
+                            } else{
+                                mini.alert("删除失败","系统提示");
+                                datagrid.unmask();
+                            }
+                        }
+                    });
+                }
+            });
+        } else{
+            mini.alert("请至少选择一条数据","系统提示");
+        }
+    }
+
+    function edit() {
+        var row = datagrid.getSelected();
+        if (row){
+            mini.open({
+                url : "/updateDept.html",
+                title : "修改部门",
+                width : 500,
+                height : 150,
+                onload : function(){
+                    var frame = this.getIFrameEl();
+                    var data = row;
+                    frame.contentWindow.setData(data);
+                },
+                ondestroy : function(action) {
+                    if (action == "ok"){
+                        mini.alert("修改成功","系统提示");
+                        datagrid.reload();
+                    } else if (action == "false") {
+                        mini.alert("修改失败","系统提示");
+                    }
+                }
+            });
+        } else{
+            mini.alert("请至少选择一条数据","系统提示");
+        }
+    }
+
+    function showOrHide(e) {
+        var rows = datagrid.getSelecteds();
+        var edit = mini.get("edit");
+        if (rows.length > 1){
+            edit.disable();
+        } else{
+            edit.enable();
+        }
+    }
+
+    function search(){
+        var form = new mini.Form("form");
+        var data = form.getData(true,true);
+        datagrid.load(data);
+    }
+
+    function sexRender(e) {
+        var data = [{'id':1,'text':'男'},{'id':2,'text':'女'}];
+        for (var i = 0;i<data.length;i++){
+            if (e.value == data[i].id){
+                return data[i].text;
+            }
+        }
+    }
+
+    function dateFormat(e) {
+        var d = new Date(e.value);
+        var datetime=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+        return datetime;
+    }
+</script>
+</body>
+</html>
