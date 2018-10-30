@@ -30,4 +30,7 @@ public interface TestMapper {
 
     @Insert("insert into t_test(date,name) values(#{date},#{name})")
     Integer isertTestByHashMap(HashMap<String,Object> map);
+
+    @Select("select count(*) from t_test")
+    Integer getCount();
 }
