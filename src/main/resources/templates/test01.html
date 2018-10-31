@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <p th:text="${htmlContent}"></p>
+        <p th:utext="${htmlContent}"></p>
+
+        <p th:text="${product.name}"></p>
+        <p th:text="${product.price}"></p>
+
+        <p th:utext="${product.price + 9000}"></p>
+
+        <div th:if="${isOk}">显示1</div>
+        <div th:unless="${isOk}">不显示1</div>
+        <div th:if="not ${isOk}">不显示1</div>
+        <div th:text="${isOk}?'显示':''">显示1</div>
+
+        <table>
+            <tr>
+                <th>id</th>
+                <th>名称</th>
+                <th>价格</th>
+            </tr>
+            <tr th:each="p,status : ${products}">
+                <td th:text="${status.index}"></td>
+                <td th:text="${p.name}"></td>
+                <td th:text="${p.price}"></td>
+            </tr>
+        </table>
+
+        <select size="3">
+            <option th:each="p : ${products}" th:value="${p.price}" th:selected="${product.id == p.id}" th:text="${p.price}"></option>
+        </select>
+
+
+        <p th:text="${now}"></p>
+        <p th:text="${#dates.format(now)}"></p>
+        <p th:text="${#dates.format(now,'yyyy-MM-dd HH:mm:ss')}"></p>
+</body>
+</html>

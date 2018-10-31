@@ -18,7 +18,7 @@ public class SpringbootdemoApplicationTests {
     private RedisTemplate redisTemplate;
 
     @Test
-    public void redis(){
+    public void redis() {
         redisService.setKeyValue("name", "张三");
         System.out.println(redisService.getValue("name"));
         redisService.delKey("name");

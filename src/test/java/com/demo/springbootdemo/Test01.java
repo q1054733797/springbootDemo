@@ -27,15 +27,15 @@ public class Test01 {
 
     @Test
     public void downLoadFile() throws Exception {
+        //导出
+        List<HashMap<String, Object>> exportMaps = mapper.selectAll();
+        write(exportMaps);
+
         //导入
         List<HashMap<String, Object>> importMaps = read();
         for(HashMap<String, Object> map:importMaps){
             mapper.isertTestByHashMap(map);
         }
-
-        //导出
-        List<HashMap<String, Object>> exportMaps = mapper.selectAll();
-        write(exportMaps);
     }
 
     public void write(List<HashMap<String, Object>> maps) throws Exception {
