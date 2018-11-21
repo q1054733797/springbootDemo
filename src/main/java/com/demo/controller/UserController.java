@@ -23,6 +23,17 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @RequestMapping("register")
+    @ResponseBody
+    public String register(User user){
+        Integer integer = userService.addUser(user);
+        if(integer>0){
+            return "ok";
+        }else{
+            return "false";
+        }
+    }
+
     @RequestMapping("getUsers")
     public @ResponseBody HashMap<String,Object> getUsers(String username,int pageIndex,int pageSize){
         List<User> users = userService.getUsers(username);
