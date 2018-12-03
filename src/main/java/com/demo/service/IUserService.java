@@ -9,4 +9,5 @@ public interface IUserService {
     Integer addUser(User user);
     Integer deleteUser(String ids);
     Integer updateUser(User user);
+    Integer addUsrByXml(User user);
 }

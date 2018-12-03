@@ -7,6 +7,8 @@ import org.apache.ibatis.jdbc.SQL;
 
 import java.util.List;
 public interface UserMapper {
+    int addUserByXml(User user);
+
     /* 根据用户名查找用户 */
     @Select("select * from user where username like '%${value}%'")
     @Results({
@@ -18,6 +20,8 @@ public interface UserMapper {
     List<User> getUsers(String username);
 
     @InsertProvider(type = UserProvider.class,method = "insertUser")
+    @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")
+    //@SelectKey(keyColumn = "",keyProperty = "",before = false,resultType = Integer.class,statement = "select last_insert_id")
     Integer addUser(User user);
 
     @Delete("delete from user where id in (${value})")

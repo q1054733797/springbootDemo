@@ -33,4 +33,9 @@ public class UserServiceImpl implements IUserService{
     public List<User> getUsers(String username) {
         return userMapper.getUsers(username);
     }
+
+    @Override
+    public Integer addUsrByXml(User user) {
+        return userMapper.addUserByXml(user);
+    }
 }

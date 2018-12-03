@@ -83,15 +83,12 @@
 			<version>2.6.12</version>
 		</dependency>
 
-		<!-- 生成二维码 -->
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
 		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>qrcode</artifactId>
-			<version>1.0.2</version>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.0</version>
 		</dependency>
-
-
-
 
 		<!--mybatis分页插件-->
 		<dependency>
