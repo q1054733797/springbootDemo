@@ -33,7 +33,8 @@ public class Test04 {
         user.setUsername("admin");
         user.setPassword("123456");
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(user);
+        //String json = mapper.writeValueAsString(user);
+        String json = "{\"username\":\"admin\",\"password\":\"123456\"}";
         System.out.println(json);
         //postByMap(url, map);
         postByJson(url, json);

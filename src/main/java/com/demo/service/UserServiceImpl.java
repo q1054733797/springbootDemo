@@ -30,7 +30,7 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public List<User> getUsers(String username) {
+    public List getUsers(String username) {
         return userMapper.getUsers(username);
     }
 

@@ -35,13 +35,10 @@ public class UserController {
     }
 
     @RequestMapping("getUsers")
-    public @ResponseBody HashMap<String,Object> getUsers(String username,int pageIndex,int pageSize){
-        List<User> users = userService.getUsers(username);
-        int total = users.size();
-        users = users.subList(pageIndex*pageSize, (pageIndex*pageSize+pageSize)>total? total:(pageIndex*pageSize+pageSize));
+    public @ResponseBody HashMap<String,Object> getUsers(String username){
+        List users = userService.getUsers(username);
         HashMap<String,Object> map = new HashMap<>();
         map.put("resultList", users);
-        map.put("total", total);
         return map;
     }
 

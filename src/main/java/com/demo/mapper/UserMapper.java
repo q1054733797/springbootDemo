@@ -5,19 +5,13 @@ import com.demo.bean.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.util.HashMap;
 import java.util.List;
 public interface UserMapper {
     int addUserByXml(User user);
 
     /* 根据用户名查找用户 */
-    @Select("select * from user where username like '%${value}%'")
-    @Results({
-            @Result(property = "id",column = "id"),
-            @Result(property = "dept",column = "id",one = @One(
-                    select = "getDept"
-            ))
-    })
-    List<User> getUsers(String username);
+    List<HashMap<String,String>> getUsers(String username);
 
     @InsertProvider(type = UserProvider.class,method = "insertUser")
     @Options(useGeneratedKeys = true,keyProperty = "id",keyColumn = "id")

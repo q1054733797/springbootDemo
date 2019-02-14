@@ -16,6 +16,7 @@ public class test {
     @RequestMapping("test02")
     @ResponseBody
     public User test02(@RequestBody User user){
+        System.out.println("我只想给你妈一拳");
         return user;
     }
 }
